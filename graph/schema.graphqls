@@ -1,0 +1,207 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+
+type User {
+  id: ID!
+  first_name: firstName!
+  last_name: lastName!
+  email: String!
+  password: String!
+  mobile: Int
+  role: Role!
+  isActive: Boolean
+}
+
+type Seller{
+  id: ID!
+  user_info:User!
+  user_id:String!
+  addresses:[Address]
+  shops:[Shops]
+}
+
+
+type Admin{
+  id: ID!
+  user_info:User!
+  user_id:String!
+  manages:[Seller]
+}
+
+type Customer{
+  id: ID!
+  user_info:User!
+  user_id:String!
+  addresses:[Address]
+}
+
+
+
+type Role {
+  id: ID!
+  name: String!
+  ability: [Abilities!]!
+}
+
+type Abilities {
+  id: ID!
+  action: String!
+  subject:String!
+}
+
+type Address {
+  id: ID!
+  floor_no: Int!
+  appartment_no:Int!
+  land_mark:String!
+  street:String!
+  city:String!
+  state:String!
+  country:String!
+  coordinates: Coordinates!
+
+}
+
+type firstName{
+  ar:String
+  en:String
+}
+
+type lastName{
+  ar:String
+  en:String
+}
+
+
+type businessName{
+  ar:String
+  en:String
+}
+
+type Shops{
+  id: ID!
+  name:businessName!
+  address:Address!
+
+}
+
+type Coordinates{
+  lat:Int!
+  lng:Int!
+}
+
+
+input newAdmin {
+    id: ID
+    user_info:newUser!
+    user_id:String!
+    addresses:newAddress
+    manages:newSeller
+}
+
+
+input newSeller {
+    id: ID
+    user_info:newUser!
+    user_id:String!
+    addresses:newAddress
+    shops:newShops
+  }
+
+
+
+input newCustomer {
+  id: ID!
+  user_info:newUser!
+  user_id:String!
+  addresses:newAddress
+}
+
+input newUser{
+ 
+  id: ID!
+  first_name: newFirstName!
+  last_name: newLastName!
+  email: String!
+  password: String!
+  mobile: Int
+  role: newRole!
+  isActive: Boolean
+
+}
+
+
+input newAddress {
+ 
+  id: ID!
+  floor_no: Int!
+  appartment_no:Int!
+  land_mark:String!
+  street:String!
+  city:String!
+  state:String!
+  country:String!
+  coordinates: newCoordinates!
+
+}
+
+
+input newFirstName{
+  ar:String
+  en:String
+}
+
+input newLastName{
+  ar:String
+  en:String
+}
+
+
+
+input newBusinessName{
+  ar:String
+  en:String
+}
+
+
+input newRole {
+  id: ID!
+  name: String!
+  ability: newAbilities!
+}
+
+
+input newAbilities {
+  id: ID!
+  action: String!
+  subject:String!
+}
+
+
+
+input newShops{
+  id: ID!
+  name:newBusinessName!
+  address:newAddress!
+
+}
+
+input newCoordinates{
+  lat:Int!
+  lng:Int!
+}
+
+type Mutation {
+  createAdmin(input: newAdmin!): Admin!
+  createSeller(input: newSeller!): Seller!
+  createCustomer(input: newCustomer!): Customer!
+
+}
+
+type Query {
+  seller: [Seller!]!
+  admin: [Admin!]!
+  customer: [Customer!]!
+}

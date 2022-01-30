@@ -1,0 +1,210 @@
+mutation createSeller{
+  createSeller(input:{
+    id:"gold table",
+    user_id:"newUser",
+    user_info:{
+    id:"gold table",
+    first_name:{
+      ar:"عمر",
+      en:"Omar"
+    }, last_name:{
+      ar:"أحمد",
+      en:"Ahmed"
+    },
+    email:"omar@homzmart.com",
+    password:"no1canbmeh",
+    role:{
+   id:"",
+	name:"seller",
+ ability:{
+ id:"can",
+action:"manage",
+ subject:"Auth"
+      }
+    }
+  },
+    addresses:{
+      id:"",
+      land_mark:"Mosque el toupa",
+      floor_no:9,
+      appartment_no:8,
+      city:"cairo",
+      state:"qahera",
+      street:"Mogawra tamna Maadi",
+      country:"Egypt",
+      coordinates:{
+        lat:8989,
+        lng:809809
+      }
+    },
+    shops:{
+      id:"dljshlksd",
+      name:{
+			ar:"عمر",
+      en:"Omar"
+      },
+      address:{
+      id:"",
+      land_mark:"Mosque el toupa",
+      floor_no:9,
+      appartment_no:8,
+      city:"cairo",
+      state:"qahera",
+      street:"Mogawra tamna Maadi",
+      country:"Egypt",
+      coordinates:{
+        lat:8989,
+        lng:809809
+      }
+      }
+    },
+  
+  
+  }){
+    id
+    user_id
+    user_info{
+      first_name{
+        ar
+      }
+      last_name{
+        ar
+      }
+      email
+      password
+      role{
+        name
+      }
+      mobile
+    }
+    addresses{
+      floor_no
+      state
+      street
+      appartment_no
+      land_mark
+    }
+    shops{
+      name{
+        ar
+      }
+    }
+  }
+}
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+query seller{
+    seller{
+ id
+    user_id
+    user_info{
+      first_name{
+        ar
+        en
+      }
+      last_name{
+        ar
+        en
+      }
+      email
+      password
+      role{
+        name
+        ability{
+          id
+          action
+          subject
+        }
+      }
+      mobile
+    }
+    addresses{
+      floor_no
+      state
+      street
+      appartment_no
+      land_mark
+    }
+    shops{
+      name{
+        ar
+        en
+      }
+      address{
+         floor_no
+      state
+      street
+      appartment_no
+      land_mark
+        city
+      }
+    }    }
+}
+
+
+
+
+--------------------------------------
+
+
+
+
+
+query seller{
+    seller{
+ id
+    user_id
+    user_info{
+      first_name{
+        ar
+        en
+      }
+      last_name{
+        ar
+        en
+      }
+      email
+      password
+      role{
+        name
+        ability{
+          id
+          action
+          subject
+        }
+      }
+      mobile
+    }
+    addresses{
+      floor_no
+      state
+      street
+      appartment_no
+      land_mark
+    }
+    shops{
+      name{
+        ar
+        en
+      }
+      address{
+         floor_no
+      state
+      street
+      appartment_no
+      land_mark
+        city
+      }
+    }    }
+}
