@@ -17,4 +17,5 @@ type Resolver struct {
 	seller    *model.Seller
 	admin     *model.Admin
 	customer  *model.Customer
+	login  	  *model.Login
 }

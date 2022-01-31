@@ -21,10 +21,11 @@ type Address struct {
 }
 
 type Admin struct {
-	ID       string    `json:"id"`
-	UserInfo *User     `json:"user_info"`
-	UserID   string    `json:"user_id"`
-	Manages  []*Seller `json:"manages"`
+	ID        string     `json:"id"`
+	UserInfo  *User      `json:"user_info"`
+	UserID    string     `json:"user_id"`
+	Addresses []*Address `json:"addresses"`
+	Manages   []*Seller  `json:"manages"`
 }
 
 type Coordinates struct {
@@ -37,6 +38,11 @@ type Customer struct {
 	UserInfo  *User      `json:"user_info"`
 	UserID    string     `json:"user_id"`
 	Addresses []*Address `json:"addresses"`
+}
+
+type Login struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type Role struct {
@@ -104,10 +110,11 @@ type NewAddress struct {
 }
 
 type NewAdmin struct {
-	ID       string     `json:"id"`
-	UserInfo *NewUser   `json:"user_info"`
-	UserID   string     `json:"user_id"`
-	Manages  *NewSeller `json:"manages"`
+	ID        *string     `json:"id"`
+	UserInfo  *NewUser    `json:"user_info"`
+	UserID    string      `json:"user_id"`
+	Addresses *NewAddress `json:"addresses"`
+	Manages   *NewSeller  `json:"manages"`
 }
 
 type NewBusinessName struct {
@@ -137,6 +144,11 @@ type NewLastName struct {
 	En *string `json:"en"`
 }
 
+type NewLogin struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 type NewRole struct {
 	ID      string        `json:"id"`
 	Name    string        `json:"name"`
@@ -144,7 +156,7 @@ type NewRole struct {
 }
 
 type NewSeller struct {
-	ID        string      `json:"id"`
+	ID        *string     `json:"id"`
 	UserInfo  *NewUser    `json:"user_info"`
 	UserID    string      `json:"user_id"`
 	Addresses *NewAddress `json:"addresses"`
@@ -166,4 +178,9 @@ type NewUser struct {
 	Mobile    *int          `json:"mobile"`
 	Role      *NewRole      `json:"role"`
 	IsActive  *bool         `json:"isActive"`
+}
+
+type UserData struct {
+	UserData *User  `json:"userData"`
+	Token    string `json:"token"`
 }

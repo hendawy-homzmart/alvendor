@@ -27,6 +27,7 @@ type Admin{
   id: ID!
   user_info:User!
   user_id:String!
+  addresses:[Address]
   manages:[Seller]
 }
 
@@ -70,7 +71,9 @@ type firstName{
 }
 
 type lastName{
+ 
   ar:String
+ 
   en:String
 }
 
@@ -193,11 +196,25 @@ input newCoordinates{
   lng:Int!
 }
 
+input newLogin{
+  email:String!
+  password:String!
+}
+
+type Login{
+  email:String!
+  password:String!
+}
+
+
+
 type Mutation {
   createAdmin(input: newAdmin!): Admin!
   createSeller(input: newSeller!): Seller!
   createCustomer(input: newCustomer!): Customer!
-
+  loginAdmin(input: newLogin!): userData!
+  loginSeller(input: newLogin!): userData!
+  loginCustomer(input: newLogin!): userData!
 }
 
 type Query {
@@ -205,3 +222,16 @@ type Query {
   admin: [Admin!]!
   customer: [Customer!]!
 }
+
+type userData{
+  userData:User!
+  token:String!
+}
+
+
+# type Auth {
+#   loginAdmin(input: newLogin!): Login!
+#   loginSeller(input: newLogin!): Login!
+#   loginCustomer(input: newLogin!): Login!
+
+# }

@@ -208,3 +208,143 @@ query seller{
       }
     }    }
 }
+
+
+-------------------------------------------------------------------------------------------
+
+
+mutation createCustomer{
+  createCustomer(input:{
+    id:"gold table",
+    user_id:"newUser",
+    user_info:{
+    id:"gold table",
+    first_name:{
+      ar:"عمر",
+      en:"Omar"
+    }, last_name:{
+      ar:"أحمد",
+      en:"Ahmed"
+    },
+    email:"omar@homzmart.com",
+    password:"no1canbmeh",
+    mobile:1117198333,
+
+      role:{
+      id:"",
+      name:"seller",
+        ability:{
+        id:"can",
+        action:"manage",
+        subject:"Auth"
+          }
+      }
+  },
+    addresses:{
+      id:"",
+      land_mark:"Mosque el toupa",
+      floor_no:9,
+      appartment_no:8,
+      city:"cairo",
+      state:"qahera",
+      street:"Mogawra tamna Maadi",
+      country:"Egypt",
+      coordinates:{
+        lat:8989,
+        lng:809809
+      }
+    },
+   
+  
+  
+  }){
+    id
+    user_id
+    user_info{
+      first_name{
+        ar
+        en
+      }
+      last_name{
+        ar
+        en
+      }
+      email
+      password
+      role{
+        name
+      }
+      mobile
+    }
+    addresses{
+      floor_no
+      state
+      street
+      appartment_no
+      land_mark
+    }
+   
+  }
+}
+
+
+{"_id":{"$oid":"61f590d87d7a1c9a1567bd57"},"id":"5577006791947779410","userinfo":{"id":"8674665223082153551","firstname":{"ar":"عمر","en":"Omar"},"lastname":{"ar":"أحمد","en":"Ahmed"},"email":"omar@homzmart.com","password":"no1canbmeh","mobile":null,"role":{"id":"","name":"seller","ability":[{"id":"6129484611666145821","action":"manage","subject":"Auth"}]},"isactive":null},"userid":"4037200794235010051","addresses":[{"id":"","floorno":{"$numberInt":"9"},"appartmentno":{"$numberInt":"8"},"landmark":"Mosque el toupa","street":"Mogawra tamna Maadi","city":"cairo","state":"qahera","country":"Egypt","coordinates":{"lat":{"$numberInt":"8989"},"lng":{"$numberInt":"809809"}}}],"shops":[{"id":"3916589616287113937","name":{"ar":"عمر","en":"Omar"},"address":{"id":"","floorno":{"$numberInt":"9"},"appartmentno":{"$numberInt":"8"},"landmark":"Mosque el toupa","street":"Mogawra tamna Maadi","city":"cairo","state":"qahera","country":"Egypt","coordinates":{"lat":{"$numberInt":"8989"},"lng":{"$numberInt":"809809"}}}}]}
+
+
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+mutation loginSeller{
+  loginSeller(input:{email:"omar@homzmart.com",  password:"qweewljadsfhk" })
+{
+ userData{
+  id
+  email
+  first_name{
+    ar
+    en
+  }
+  last_name{
+    ar
+    en
+  }
+}
+  token
+  
+  
+}
+  
+}
+
+
+
+mutation loginSeller {
+  loginSeller(input: { email: "omar@homzmart.com", password: "no1canbmeh" }) {
+    userData {
+      id
+      email
+      password
+      first_name {
+        ar
+        en
+      }
+      last_name {
+        ar
+        en
+      }
+      role {
+        name
+        ability {
+          action
+          subject
+        }
+      }
+    }
+    token
+  }
+}

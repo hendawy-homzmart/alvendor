@@ -1,27 +1,27 @@
 package graph
 
-// This file will be automatically regenerated based on the schema, any resolver implementations
-// will be copied through when generating and any unknown code will be moved to the end.
-
 import (
 	"context"
 	"fmt"
 	"math/rand"
 	"strconv"
 
+	"github.com/El-Hendawy/gograph/auth"
 	"github.com/El-Hendawy/gograph/graph/generated"
 	"github.com/El-Hendawy/gograph/graph/model"
 	"github.com/El-Hendawy/gograph/graph/repository"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func (r *mutationResolver) CreateAdmin(ctx context.Context, input model.NewAdmin) (*model.Admin, error) {
 	admin := &model.Admin{
 		ID: strconv.Itoa(rand.Int()),
 		UserInfo: &model.User{
-			ID: strconv.Itoa(rand.Int()),
-
+			ID:       strconv.Itoa(rand.Int()),
 			Email:    input.UserInfo.Email,
-			Password: input.UserInfo.Password,
+			Password: HashPassword(input.UserInfo.Password),
+			Mobile:   input.UserInfo.Mobile,
+			IsActive: input.UserInfo.IsActive,
 			Role: &model.Role{
 				ID:   input.UserInfo.Role.ID,
 				Name: input.UserInfo.Role.Name,
@@ -35,20 +35,25 @@ func (r *mutationResolver) CreateAdmin(ctx context.Context, input model.NewAdmin
 			},
 		},
 		UserID: strconv.Itoa(rand.Int()),
-
-		
+		// Manages: []*model.Seller{
+		// 	&model.Seller{
+		// 		ID: input.Addresses.ID,
+		// 	},
+		// },
 	}
 
 	adminRepo.SaveAdmin(admin)
 	return admin, nil
-
 }
 
 func (r *mutationResolver) CreateSeller(ctx context.Context, input model.NewSeller) (*model.Seller, error) {
-	//panic(fmt.Errorf("not implemented"))
+	user := auth.ForContext(ctx)
+	if user == nil {
+		return &model.Seller{}, fmt.Errorf("access denied")
+	}
+
 	seller := &model.Seller{
 		ID: strconv.Itoa(rand.Int()),
-
 		UserInfo: &model.User{
 			ID: strconv.Itoa(rand.Int()),
 			FirstName: &model.FirstName{
@@ -60,7 +65,7 @@ func (r *mutationResolver) CreateSeller(ctx context.Context, input model.NewSell
 				En: input.UserInfo.LastName.En,
 			},
 			Email:    input.UserInfo.Email,
-			Password: input.UserInfo.Password,
+			Password: HashPassword(input.UserInfo.Password),
 			Role: &model.Role{
 				ID:   input.UserInfo.Role.ID,
 				Name: input.UserInfo.Role.Name,
@@ -99,16 +104,26 @@ func (r *mutationResolver) CreateSeller(ctx context.Context, input model.NewSell
 					En: input.Shops.Name.En,
 				},
 				Address: &model.Address{
-					ID:           input.Shops.Address.ID,
-					FloorNo:      input.Shops.Address.FloorNo,
+					ID: input.Shops.Address.ID,
+
+					FloorNo: input.Shops.Address.FloorNo,
+
 					AppartmentNo: input.Shops.Address.AppartmentNo,
-					LandMark:     input.Shops.Address.LandMark,
-					Street:       input.Shops.Address.Street,
-					City:         input.Shops.Address.City,
-					State:        input.Shops.Address.State,
-					Country:      input.Shops.Address.Country,
+
+					LandMark: input.Shops.Address.LandMark,
+
+					Street: input.Shops.Address.Street,
+
+					City: input.Shops.Address.City,
+
+					State: input.Shops.Address.State,
+
+					Country: input.Shops.Address.Country,
+
 					Coordinates: &model.Coordinates{
+
 						Lat: input.Shops.Address.Coordinates.Lat,
+
 						Lng: input.Shops.Address.Coordinates.Lng,
 					},
 				},
@@ -121,6 +136,7 @@ func (r *mutationResolver) CreateSeller(ctx context.Context, input model.NewSell
 }
 
 func (r *mutationResolver) CreateCustomer(ctx context.Context, input model.NewCustomer) (*model.Customer, error) {
+
 	customer := &model.Customer{
 		ID: strconv.Itoa(rand.Int()),
 
@@ -135,7 +151,7 @@ func (r *mutationResolver) CreateCustomer(ctx context.Context, input model.NewCu
 				En: input.UserInfo.LastName.En,
 			},
 			Email:    input.UserInfo.Email,
-			Password: input.UserInfo.Password,
+			Password: HashPassword(input.UserInfo.Password),
 			Role: &model.Role{
 				ID:   input.UserInfo.Role.ID,
 				Name: input.UserInfo.Role.Name,
@@ -171,6 +187,30 @@ func (r *mutationResolver) CreateCustomer(ctx context.Context, input model.NewCu
 	return customer, nil
 }
 
+func (r *mutationResolver) LoginAdmin(ctx context.Context, input model.NewLogin) (*model.UserData, error) {
+	panic(fmt.Errorf("not implemented"))
+	// seller := &model.Login{
+	// 	Email: input.Email,
+	// 	Password: input.Password,
+	// }
+	// sellerRepo.AuthenticateSeller(seller)
+}
+
+func (r *mutationResolver) LoginSeller(ctx context.Context, input model.NewLogin) (*model.UserData, error) {
+	//panic(fmt.Errorf("not implemented"))
+	seller := &model.Login{
+		Email:    input.Email,
+		Password: input.Password,
+	}
+	token, err := sellerRepo.AuthenticateSeller(seller)
+
+	return token, err
+}
+
+func (r *mutationResolver) LoginCustomer(ctx context.Context, input model.NewLogin) (*model.UserData, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
 func (r *queryResolver) Seller(ctx context.Context) ([]*model.Seller, error) {
 	//	panic(fmt.Errorf("not implemented"))
 	return sellerRepo.FindAll(), nil
@@ -202,3 +242,16 @@ type queryResolver struct{ *Resolver }
 var sellerRepo repository.SellerRepository = repository.New()
 var customerRepo repository.CustomerRepository = repository.NewCustomer()
 var adminRepo repository.AdminRepository = repository.NewAdmin()
+
+func HashPassword(password string) string {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return string(bytes)
+}
+
+// func CheckPasswordHash(password, hash string) bool {
+// 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+// 	return err == nil
+// }
