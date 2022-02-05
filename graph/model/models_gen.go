@@ -40,9 +40,38 @@ type Customer struct {
 	Addresses []*Address `json:"addresses"`
 }
 
+type Image struct {
+	ID   string  `json:"id"`
+	Path *string `json:"path"`
+	Name *string `json:"name"`
+}
+
 type Login struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+}
+
+type Name struct {
+	Ar *string `json:"ar"`
+	En *string `json:"en"`
+}
+
+type Product struct {
+	ProductName   *Name              `json:"product_name"`
+	Unit          *string            `json:"unit"`
+	MinQty        *int               `json:"min_qty"`
+	MaxQty        *int               `json:"max_qty"`
+	Status        *int               `json:"status"`
+	ProductImages *ProductImages     `json:"product_images"`
+	Variant       []*Variant         `json:"variant"`
+	Sku           *string            `json:"sku"`
+	Alias         *string            `json:"alias"`
+	Warranty      *bool              `json:"warranty"`
+	Discount      *float64           `json:"discount"`
+	Attributes    []*AttributesData  `json:"attributes"`
+	Seo           *SeoData           `json:"seo"`
+	Brand         *ProductBrand      `json:"brand"`
+	Categories    *ProductCategories `json:"categories"`
 }
 
 type Role struct {
@@ -74,6 +103,12 @@ type User struct {
 	Mobile    *int       `json:"mobile"`
 	Role      *Role      `json:"role"`
 	IsActive  *bool      `json:"isActive"`
+}
+
+type AttributesData struct {
+	ID    string  `json:"id"`
+	Name  *Name   `json:"name"`
+	Value *string `json:"value"`
 }
 
 type BusinessName struct {
@@ -139,6 +174,12 @@ type NewFirstName struct {
 	En *string `json:"en"`
 }
 
+type NewImage struct {
+	ID   string  `json:"id"`
+	Path *string `json:"path"`
+	Name *string `json:"name"`
+}
+
 type NewLastName struct {
 	Ar *string `json:"ar"`
 	En *string `json:"en"`
@@ -147,6 +188,29 @@ type NewLastName struct {
 type NewLogin struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+}
+
+type NewName struct {
+	Ar *string `json:"ar"`
+	En *string `json:"en"`
+}
+
+type NewProduct struct {
+	ProductName   *NewName              `json:"product_name"`
+	Unit          *string               `json:"unit"`
+	MinQty        *int                  `json:"min_qty"`
+	MaxQty        *int                  `json:"max_qty"`
+	Status        *int                  `json:"status"`
+	ProductImages *NewproductImages     `json:"product_images"`
+	Variant       []*Newvariant         `json:"variant"`
+	Sku           *string               `json:"sku"`
+	Alias         *string               `json:"alias"`
+	Warranty      *bool                 `json:"warranty"`
+	Discount      *float64              `json:"discount"`
+	Attributes    []*NewattributesData  `json:"attributes"`
+	Seo           *NewseoData           `json:"seo"`
+	Brand         *NewproductBrand      `json:"brand"`
+	Categories    *NewproductCategories `json:"categories"`
 }
 
 type NewRole struct {
@@ -180,7 +244,75 @@ type NewUser struct {
 	IsActive  *bool         `json:"isActive"`
 }
 
+type NewattributesData struct {
+	ID    string   `json:"id"`
+	Name  *NewName `json:"name"`
+	Value *string  `json:"value"`
+}
+
+type NewproductBrand struct {
+	ID    string    `json:"id"`
+	Name  *string   `json:"name"`
+	Image *NewImage `json:"image"`
+}
+
+type NewproductCategories struct {
+	ID   string   `json:"id"`
+	Name *NewName `json:"name"`
+}
+
+type NewproductGallery struct {
+	Image []*NewImage `json:"image"`
+}
+
+type NewproductImages struct {
+	Thumbnail *string            `json:"thumbnail"`
+	Gallery   *NewproductGallery `json:"gallery"`
+}
+
+type NewseoData struct {
+	Title *string   `json:"title"`
+	Desc  *string   `json:"desc"`
+	Image *NewImage `json:"image"`
+}
+
+type Newvariant struct {
+	Name  *NewName `json:"name"`
+	Value *string  `json:"value"`
+}
+
+type ProductBrand struct {
+	ID    string  `json:"id"`
+	Name  *string `json:"name"`
+	Image *Image  `json:"image"`
+}
+
+type ProductCategories struct {
+	ID   string `json:"id"`
+	Name *Name  `json:"name"`
+}
+
+type ProductGallery struct {
+	Image []*Image `json:"image"`
+}
+
+type ProductImages struct {
+	Thumbnail *string         `json:"thumbnail"`
+	Gallery   *ProductGallery `json:"gallery"`
+}
+
+type SeoData struct {
+	Title *string `json:"title"`
+	Desc  *string `json:"desc"`
+	Image *Image  `json:"image"`
+}
+
 type UserData struct {
 	UserData *User  `json:"userData"`
 	Token    string `json:"token"`
+}
+
+type Variant struct {
+	Name  *Name   `json:"name"`
+	Value *string `json:"value"`
 }

@@ -215,6 +215,9 @@ type Mutation {
   loginAdmin(input: newLogin!): userData!
   loginSeller(input: newLogin!): userData!
   loginCustomer(input: newLogin!): userData!
+
+    createProduct(input: newProduct!): Product!
+
 }
 
 type Query {
@@ -228,10 +231,194 @@ type userData{
   token:String!
 }
 
+type Product {
+  product_name:Name,
+  unit:String,
+  min_qty:Int,
+  max_qty:Int,
+  status:Int,
+  product_images:productImages,
+  variant:[variant!],
+  sku:String,
+  alias:String,
+  warranty:Boolean,
+  discount:Float,
+  attributes:[attributesData!],
+  seo:seoData,
+  brand:productBrand,
+  categories:productCategories,
 
-# type Auth {
-#   loginAdmin(input: newLogin!): Login!
-#   loginSeller(input: newLogin!): Login!
-#   loginCustomer(input: newLogin!): Login!
+}
 
-# }
+type Name{
+ 
+  ar:String,
+  en:String
+
+}
+
+type variant{
+  
+  name:Name,
+  value:String
+
+}
+
+type productImages{
+  
+  thumbnail:String,
+  gallery: productGallery
+
+}
+
+type productGallery{
+ 
+ image:[Image!]
+
+}
+
+type Image{
+    
+    id: ID!,
+
+    path:String,
+
+    name:String,
+
+}
+
+
+type productBrand{
+
+    id: ID!,
+
+    name:String,
+
+    image:Image,
+
+}
+
+type seoData{
+ 
+  title:String,
+
+  desc:String,
+
+  image:Image
+
+}
+
+
+type attributesData{
+    
+    id: ID!,
+
+    name:Name,
+
+    value:String
+
+}
+
+type productCategories{
+  
+    id: ID!,
+
+    name:Name,
+
+}
+
+
+
+
+
+
+
+
+
+
+
+input newProduct {
+
+  product_name:newName,
+  unit:String,
+  min_qty:Int,
+  max_qty:Int,
+  status:Int,
+  product_images:newproductImages,
+  variant:[newvariant!],
+  sku:String,
+  alias:String,
+  warranty:Boolean,
+  discount:Float,
+  attributes:[newattributesData!],
+  seo:newseoData,
+  brand:newproductBrand,
+  categories:newproductCategories,
+
+}
+
+input newName{
+ 
+  ar:String,
+  en:String
+
+}
+
+input newvariant{
+  
+  name:newName,
+  value:String
+
+}
+
+input newproductImages{
+  
+  thumbnail:String,
+  gallery: newproductGallery
+
+}
+
+input newproductGallery{
+ 
+ image:[newImage!]
+
+}
+
+input newImage{
+    
+    id: ID!,
+    path:String,
+    name:String,
+
+}
+
+
+input newproductBrand{
+    id: ID!,
+    name:String,
+    image:newImage,
+}
+
+input newseoData{
+ 
+  title:String,
+  desc:String,
+  image:newImage
+
+}
+
+
+input newattributesData{
+    
+    id: ID!
+    name:newName,
+    value:String
+
+}
+
+input newproductCategories{
+  
+    id: ID!,
+    name:newName,
+
+}

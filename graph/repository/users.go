@@ -17,8 +17,13 @@ import (
 )
 
 type AdminRepository interface {
-	SaveAdmin(customer *model.Admin)
+	SaveAdmin(admin *model.Admin)
 	FindAllAdmin() []*model.Admin
+}
+
+type ProductRepository interface {
+	SaveProduct(product *model.Product)
+	//FindAllPro() []*model.Product
 }
 
 type SellerRepository interface {
@@ -43,7 +48,28 @@ const (
 	COLLECTIONCUSTOMER = "customers"
 
 	COLLECTIONADMIN = "admins"
+
+	COLLECTIONPRODUCT = "products"
 )
+
+func NewProduct() ProductRepository {
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	clientOptions := options.Client().ApplyURI("mongodb+srv://hendawy:no1canbmeh@cluster0.lfvaq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+	clientOptions = clientOptions.SetMaxPoolSize(55)
+	userClient, err := mongo.Connect(ctx, clientOptions)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Check the connection
+	err = userClient.Ping(ctx, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Connected to MongoDB!")
+	return &database{
+		client: userClient,
+	}
+}
 
 func NewAdmin() AdminRepository {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -249,4 +275,12 @@ func (db *database) AuthenticateSeller(login *model.Login) (*model.UserData, err
 func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
+}
+
+func (db *database) SaveProduct(product *model.Product) {
+	collection := db.client.Database(DATABASE).Collection(COLLECTIONPRODUCT)
+	_, err := collection.InsertOne(context.TODO(), product)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

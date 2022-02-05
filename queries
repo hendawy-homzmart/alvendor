@@ -348,3 +348,118 @@ mutation loginSeller {
     token
   }
 }
+
+
+
+
+
+-------------------
+-------------------
+-------------------
+-------------------
+
+
+
+
+mutation createProduct{
+  createProduct(input:{
+    product_name:{
+      ar:"عمر",
+      en:"Omar"
+    },
+    unit:"Killo",
+    min_qty:909,
+    max_qty:70,
+    status:0,
+
+
+    product_images:{
+      {
+        thumbnail:"",
+        gallery:[
+          {
+            id:"ID",
+            path:"kdaofkaodif",
+            name:"Name"
+          },
+            {
+            id:"ID",
+            path:"kdaofkaodif",
+            name:"Name"
+          }
+        ]
+      }
+    },
+  variant:{
+    [
+      {
+        name:"Variant one",
+        value:909
+      }
+    ]
+  },
+sku:"Sku one",
+alias:"babysharkDODOD",
+warranty:true,
+discount:9.99,
+attributes:{
+  [{
+    id:"ID",
+    name:"Attr",
+    value:"Still"
+  }]
+},
+
+seo:{
+  title:"Product",
+  desc:"Desc",
+  image:{
+    id:"ImageID",
+    path:"STRING",
+    name:"Name"
+  }
+},
+
+brand:{
+id:"Brand",
+name:"String",
+image:{
+     id:"BrandImage",
+    path:"BrandImage",
+    name:"BrandImage"
+}
+},
+
+categories:{
+       id:"BrandImage",
+    name:"BrandImage"
+
+}
+   
+    },
+  
+  
+  }){
+  
+}
+
+mutation createProduct{
+  createProduct(input:{
+     product_name:{
+      ar:"عمر",
+      en:"Omar"
+    },
+    unit:"Killo",
+    min_qty:909,
+    max_qty:70,
+    status:0,
+
+  
+  }){
+    product_name{
+      ar
+    }
+   
+  }
+}
+

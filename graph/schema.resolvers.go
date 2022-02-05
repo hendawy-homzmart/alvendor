@@ -1,5 +1,8 @@
 package graph
 
+// This file will be automatically regenerated based on the schema, any resolver implementations
+// will be copied through when generating and any unknown code will be moved to the end.
+
 import (
 	"context"
 	"fmt"
@@ -136,7 +139,6 @@ func (r *mutationResolver) CreateSeller(ctx context.Context, input model.NewSell
 }
 
 func (r *mutationResolver) CreateCustomer(ctx context.Context, input model.NewCustomer) (*model.Customer, error) {
-
 	customer := &model.Customer{
 		ID: strconv.Itoa(rand.Int()),
 
@@ -211,6 +213,25 @@ func (r *mutationResolver) LoginCustomer(ctx context.Context, input model.NewLog
 	panic(fmt.Errorf("not implemented"))
 }
 
+func (r *mutationResolver) CreateProduct(ctx context.Context, input model.NewProduct) (*model.Product, error) {
+	//panic(fmt.Errorf("not implemented"))
+	product := &model.Product{
+
+		ProductName: &model.Name{
+			Ar: input.ProductName.Ar,
+			En: input.ProductName.En,
+		},
+		Unit:   input.Unit,
+		Sku:    input.Sku,
+		MinQty: input.MinQty,
+		MaxQty: input.MaxQty,
+		Status: input.Status,
+	}
+	productRepo.SaveProduct(product)
+
+	return product, nil
+}
+
 func (r *queryResolver) Seller(ctx context.Context) ([]*model.Seller, error) {
 	//	panic(fmt.Errorf("not implemented"))
 	return sellerRepo.FindAll(), nil
@@ -242,6 +263,7 @@ type queryResolver struct{ *Resolver }
 var sellerRepo repository.SellerRepository = repository.New()
 var customerRepo repository.CustomerRepository = repository.NewCustomer()
 var adminRepo repository.AdminRepository = repository.NewAdmin()
+var productRepo repository.ProductRepository = repository.NewProduct()
 
 func HashPassword(password string) string {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
@@ -250,8 +272,3 @@ func HashPassword(password string) string {
 	}
 	return string(bytes)
 }
-
-// func CheckPasswordHash(password, hash string) bool {
-// 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-// 	return err == nil
-// }
