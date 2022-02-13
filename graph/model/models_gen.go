@@ -262,7 +262,7 @@ type NewproductCategories struct {
 }
 
 type NewproductGallery struct {
-	Image []*NewImage `json:"image"`
+	Image *NewImage `json:"image"`
 }
 
 type NewproductImages struct {

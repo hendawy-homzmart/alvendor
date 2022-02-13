@@ -1417,7 +1417,7 @@ input newproductImages{
 
 input newproductGallery{
  
- image:[newImage!]
+ image:newImage!
 
 }
 
@@ -7083,7 +7083,7 @@ func (ec *executionContext) unmarshalInputnewproductGallery(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("image"))
-			it.Image, err = ec.unmarshalOnewImage2ᚕᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImageᚄ(ctx, v)
+			it.Image, err = ec.unmarshalNnewImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImage(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9724,30 +9724,6 @@ func (ec *executionContext) unmarshalOnewAddress2ᚖgithubᚗcomᚋElᚑHendawy�
 	}
 	res, err := ec.unmarshalInputnewAddress(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) unmarshalOnewImage2ᚕᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImageᚄ(ctx context.Context, v interface{}) ([]*model.NewImage, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var vSlice []interface{}
-	if v != nil {
-		if tmp1, ok := v.([]interface{}); ok {
-			vSlice = tmp1
-		} else {
-			vSlice = []interface{}{v}
-		}
-	}
-	var err error
-	res := make([]*model.NewImage, len(vSlice))
-	for i := range vSlice {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNnewImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImage(ctx, vSlice[i])
-		if err != nil {
-			return nil, err
-		}
-	}
-	return res, nil
 }
 
 func (ec *executionContext) unmarshalOnewImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {

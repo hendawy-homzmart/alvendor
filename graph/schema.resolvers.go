@@ -226,7 +226,56 @@ func (r *mutationResolver) CreateProduct(ctx context.Context, input model.NewPro
 		MinQty: input.MinQty,
 		MaxQty: input.MaxQty,
 		Status: input.Status,
+		
+		ProductImages: &model.ProductImages{
+			Thumbnail: input.ProductImages.Thumbnail,
+			Gallery: &model.ProductGallery{
+				[]*model.Image{
+					&model.Image{
+						ID:   input.ProductImages.Gallery.Image.ID,
+						Path: input.ProductImages.Gallery.Image.Path,
+						Name: input.ProductImages.Gallery.Image.Name,
+					},
+					
+				},
+			},
+		},
+		// Variant: []*model.Variant{
+		// 	&model.Variant{
+		// 		Name: input.Variant,
+		// 		Value: inp,
+		// 	},
+		// },
+
+		Alias:input.Alias,
+		Warranty: input.Warranty,
+		Discount: input.Discount,
+		Seo: &model.SeoData{
+			Title: input.Seo.Title,
+			Desc: input.Seo.Desc,
+			Image: &model.Image{
+				ID: input.Seo.Image.ID,
+				Path: input.Seo.Image.Path,
+				Name: input.Seo.Image.Name,
+
+			},
+		},
+		Brand: &model.ProductBrand{
+			ID: input.Brand.ID,
+			Name: input.Brand.Name,
+			Image: &model.Image{
+				ID: input.Brand.Image.ID,
+				Path: input.Brand.Image.Path,
+				Name: input.Brand.Image.Name,
+
+			},
+		},
+		Categories: &model.ProductCategories{
+			ID: input.Categories.ID,
+		},
+
 	}
+
 	productRepo.SaveProduct(product)
 
 	return product, nil

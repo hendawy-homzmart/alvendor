@@ -380,7 +380,7 @@ input newproductImages{
 
 input newproductGallery{
  
- image:[newImage!]
+ image:newImage!
 
 }
 
