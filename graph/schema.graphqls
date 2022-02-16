@@ -273,7 +273,7 @@ type productImages{
 
 type productGallery{
  
- image:[Image!]
+ image:Image
 
 }
 
@@ -380,7 +380,7 @@ input newproductImages{
 
 input newproductGallery{
  
- image:[newImage!]
+ image:newImage
 
 }
 

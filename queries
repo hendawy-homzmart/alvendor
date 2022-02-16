@@ -443,6 +443,8 @@ categories:{
   
 }
 
+# Write your query or mutation here
+
 mutation createProduct{
   createProduct(input:{
      product_name:{
@@ -453,6 +455,52 @@ mutation createProduct{
     min_qty:909,
     max_qty:70,
     status:0,
+    product_images:{
+      thumbnail:"thumbnail",
+      gallery:{
+      image:{
+          id:"ImageID",
+          path:"ImagePath",
+          name:"HERO"
+      },
+      }
+    },
+    variant:{
+     name:{
+      ar:"Variant One",
+      en:"Variant 1"
+    },
+      value:"Steel"
+    },
+    sku:"SKUS",
+    alias:"Alias",
+    warranty:true,
+    discount:0.5,
+    attributes:{
+      id:"Attr ID",
+      name:{
+        ar:"ATTR NAME",
+        en:"ATTR EN"
+      },
+      value:"Attr Value"
+    },
+    seo:{
+      desc:"DESC",
+      title:"Title",
+      image:"Image",
+      
+    },
+    brand:{
+      id:"Brand ID",
+      name:"Brand Name"
+    },
+    categories:{
+      id:"one",
+      name:{
+        ar:"Category Name",
+        en:"Name English"
+      }
+    }
 
   
   }){
@@ -462,4 +510,5 @@ mutation createProduct{
    
   }
 }
+
 

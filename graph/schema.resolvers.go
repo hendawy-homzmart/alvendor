@@ -226,6 +226,16 @@ func (r *mutationResolver) CreateProduct(ctx context.Context, input model.NewPro
 		MinQty: input.MinQty,
 		MaxQty: input.MaxQty,
 		Status: input.Status,
+		ProductImages: &model.ProductImages{
+			Thumbnail: input.ProductImages.Thumbnail,
+			Gallery: &model.ProductGallery{
+				Image: &model.Image{
+					ID:   input.ProductImages.Gallery.Image.ID,
+					Path: input.ProductImages.Gallery.Image.Path,
+					Name: input.ProductImages.Gallery.Image.Name,
+				},
+			},
+		},
 	}
 	productRepo.SaveProduct(product)
 

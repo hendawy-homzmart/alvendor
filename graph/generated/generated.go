@@ -1310,7 +1310,7 @@ type productImages{
 
 type productGallery{
  
- image:[Image!]
+ image:Image
 
 }
 
@@ -1417,7 +1417,7 @@ input newproductImages{
 
 input newproductGallery{
  
- image:[newImage!]
+ image:newImage
 
 }
 
@@ -5858,9 +5858,9 @@ func (ec *executionContext) _productGallery_image(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Image)
+	res := resTmp.(*model.Image)
 	fc.Result = res
-	return ec.marshalOImage2ᚕᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐImageᚄ(ctx, field.Selections, res)
+	return ec.marshalOImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _productImages_thumbnail(ctx context.Context, field graphql.CollectedField, obj *model.ProductImages) (ret graphql.Marshaler) {
@@ -7083,7 +7083,7 @@ func (ec *executionContext) unmarshalInputnewproductGallery(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("image"))
-			it.Image, err = ec.unmarshalOnewImage2ᚕᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImageᚄ(ctx, v)
+			it.Image, err = ec.unmarshalOnewImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImage(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -8638,16 +8638,6 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._Image(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {
 	res, err := graphql.UnmarshalInt(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -9102,11 +9092,6 @@ func (ec *executionContext) unmarshalNnewFirstName2ᚖgithubᚗcomᚋElᚑHendaw
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNnewImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {
-	res, err := ec.unmarshalInputnewImage(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
 func (ec *executionContext) unmarshalNnewLastName2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewLastName(ctx context.Context, v interface{}) (*model.NewLastName, error) {
 	res, err := ec.unmarshalInputnewLastName(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
@@ -9271,53 +9256,6 @@ func (ec *executionContext) marshalOID2ᚖstring(ctx context.Context, sel ast.Se
 		return graphql.Null
 	}
 	return graphql.MarshalID(*v)
-}
-
-func (ec *executionContext) marshalOImage2ᚕᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐImageᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Image) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	ret := make(graphql.Array, len(v))
-	var wg sync.WaitGroup
-	isLen1 := len(v) == 1
-	if !isLen1 {
-		wg.Add(len(v))
-	}
-	for i := range v {
-		i := i
-		fc := &graphql.FieldContext{
-			Index:  &i,
-			Result: &v[i],
-		}
-		ctx := graphql.WithFieldContext(ctx, fc)
-		f := func(i int) {
-			defer func() {
-				if r := recover(); r != nil {
-					ec.Error(ctx, ec.Recover(ctx, r))
-					ret = nil
-				}
-			}()
-			if !isLen1 {
-				defer wg.Done()
-			}
-			ret[i] = ec.marshalNImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐImage(ctx, sel, v[i])
-		}
-		if isLen1 {
-			f(i)
-		} else {
-			go f(i)
-		}
-
-	}
-	wg.Wait()
-
-	for _, e := range ret {
-		if e == graphql.Null {
-			return graphql.Null
-		}
-	}
-
-	return ret
 }
 
 func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
@@ -9724,30 +9662,6 @@ func (ec *executionContext) unmarshalOnewAddress2ᚖgithubᚗcomᚋElᚑHendawy�
 	}
 	res, err := ec.unmarshalInputnewAddress(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) unmarshalOnewImage2ᚕᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImageᚄ(ctx context.Context, v interface{}) ([]*model.NewImage, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var vSlice []interface{}
-	if v != nil {
-		if tmp1, ok := v.([]interface{}); ok {
-			vSlice = tmp1
-		} else {
-			vSlice = []interface{}{v}
-		}
-	}
-	var err error
-	res := make([]*model.NewImage, len(vSlice))
-	for i := range vSlice {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNnewImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImage(ctx, vSlice[i])
-		if err != nil {
-			return nil, err
-		}
-	}
-	return res, nil
 }
 
 func (ec *executionContext) unmarshalOnewImage2ᚖgithubᚗcomᚋElᚑHendawyᚋgographᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {
